@@ -61,32 +61,33 @@ guidata(hObject, handles);
 % UIWAIT makes About wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
-txt = {
-'GroundCalc';
-'';
-'***';
-'Created by:';
-'Dr. Kenneth Kragh Jensen & Dr. Ole Naesbye Larsen';
-'';
-'Ground effect calculating algorithms provided by:';
-'Dr. Shahram Taherzadeh & Prof. Keith Attenborough';
-'---';
-'For the general theory behind ground effect ';
-'modeling refer to:';
-'';
-'"Predicting Outdoor Sound" (Taylor & Francis, 2007) by ';
-'Keith Attenborough, Kai Ming Li, & Kirill Horoshenkov.';
-'';
-'For its application in animal communication refer to:';
-'Larsen & Radford (2018) "Acoustic Conditions ';
-'Affecting Sound Communication in Air and ';
-'Underwater" in "Effects of Anthropogenic ';
-'Noise on Animals" ';
-'(Springer, 2018)';
-'';
-'***'};
+txt = 
+{'GroundCalc';
 
-set(handles.info, 'String', txt)
+***
+Created by:
+Kenneth Kragh Jensen & Ole Naesbye Larsen
+
+Ground effect calculating algorithms provided by:
+Dr. Shahram Taherzadeh &
+Prof. Keith Attenborough
+---
+For the general theory behind ground effect 
+modeling refer to:
+
+"Predicting Outdoor Sound" (Taylor & Francis, 2007) by 
+Keith Attenborough, Kai Ming Li, & Kirill Horoshenkov.
+
+For its application in animal communication refer to:
+Larsen & Radford (2018) "Acoustic Conditions 
+Affecting Sound Communication in Air and 
+Underwater" in "Effects of Anthropogenic 
+Noise on Animals" 
+(Springer, 2018)
+
+***
+
+
 
 
 % --- Outputs from this function are returned to the command line.

@@ -118,58 +118,58 @@ function Export_Callback(hObject, eventdata, handles)
 % hObject    handle to Export (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user animcomm (see GUIDATA)
+
 global val
 
 global xlscell
 
-[FileName,PathName,FilterIndex] = uiputfile('*.xls','Save ground effect prediction...') ;
+[FileName, PathName] = uiputfile('*.xls','Save ground effect prediction...') ;
 cd(PathName);
 
 if get(handles.HoldPlot,'Value') == 0
-xlsin = {...
-    'Sender height', val.hs;
-    'Reciever height', val.hs;
-    'Sender/Reciever distance', val.dist;
-    'Flow resistivity', val.flow;
-    'Porosity', val.por;
-    'Layer thickness', val.layer;
-    'Temperature', val.temp;};
-
-
-
+    
+    xlsin = {...
+        'Sender height', val.hs;
+        'Reciever height', val.hr;
+        'Sender/Reciever distance', val.dist;
+        'Flow resistivity', val.flow/1000;
+        'Porosity', val.por;
+        'Layer thickness', val.layer;
+        'Temperature', val.temp;};
+    
     A = {'MSRI',val.turb1;
-         'Outer scale', val.turb2;};
+        'Outer scale', val.turb2;};
     B = {'Humidity', val.hum;
-         'Atm pressure', val.pascal};
+        'Atm pressure', val.pascal};
     C = {'MSRI','NA';
-         'Outer scale', 'NA';};
+        'Outer scale', 'NA';};
     D = {'Humidity', 'NA';
-         'Atm pressure', 'NA'};
-
-if get(handles.TurbCheckBox, 'Value') ~= 0
-   xlsin = cat(1,xlsin,A);
+        'Atm pressure', 'NA'};
+    
+    if get(handles.TurbCheckBox, 'Value') ~= 0
+        xlsin = cat(1,xlsin,A);
+    else
+        xlsin = cat(1,xlsin,C);
+    end
+    
+    if get(handles.ISOCheckBox, 'Value') ~= 0
+        xlsin = cat(1,xlsin,B);
+    else
+        xlsin = cat(1,xlsin,D);
+    end
+    
+    
+    label = {[],[];[],[];'Frequency (Hz)', 'Attenuation (dB)'};
+    xlsin = cat(1,xlsin,label);
+    
+    xlsdata = [val.fr' val.att'];
+    xlsdata = num2cell(xlsdata);
+    
+    xlsin = cat(1,xlsin, xlsdata);
+    xlswrite(FileName, xlsin,1,'A1')
+    
 else
-   xlsin = cat(1,xlsin,C);    
-end
-
-if get(handles.ISOCheckBox, 'Value') ~= 0
-   xlsin = cat(1,xlsin,B);
-else
-   xlsin = cat(1,xlsin,D);    
-end
-
-
-label = {[],[];[],[];'Frequency (Hz)', 'Attenuation (dB)'};
-xlsin = cat(1,xlsin,label);
-
-xlsdata = [val.fr' val.att'];
-xlsdata = num2cell(xlsdata);
-
-xlsin = cat(1,xlsin, xlsdata);
-xlswrite(FileName, xlsin,1,'A1')
-
-else
-xlswrite(FileName, xlscell,1,'A1')
+    xlswrite(FileName, xlscell,1,'A1')
 end
 
 
